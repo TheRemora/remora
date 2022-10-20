@@ -1,0 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap");
+:root {
+  --FONT_DM: "DM Sans", sans-serif;
+}
+* {
+  margin: 0;
+  padding: 0;
+  font-family: var(--FONT_DM);
+}
+
+.app {
+  text-align: center;
+  height: 100vh;
+}

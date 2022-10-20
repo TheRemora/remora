@@ -1,0 +1,51 @@
+.hero {
+  margin: 10% 0;
+  width: 100vw;
+  text-align: center;
+}
+
+.heroTitle {
+  font-size: 6rem;
+}
+
+.heroDesc {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 3rem 0;
+}
+
+div > p {
+  font-size: 1.2rem;
+}
+
+.feature1 {
+  color: #ff7a00;
+}
+
+.feature2 {
+  color: #4506ca;
+}
+
+.feature3 {
+  color: #aa00fa;
+}
+
+.heroCTA {
+  font-size: 1.2rem;
+  margin-top: 2%;
+  padding: 1.2rem 2.2rem;
+  border-radius: 6.25rem;
+  border: 4px solid transparent;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.04), 8px 8px 16px rgba(0, 0, 0, 0.08);
+  background-color: #fff;
+  background: linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(to right, #14e2b2, #4506ca) border-box;
+  cursor: pointer;
+}
+
+.heroCTA:hover {
+  background: linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(to right, #4506ca, #14e2b2) border-box;
+}
+
+/* TODO: Create button gradient animation  */

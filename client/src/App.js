@@ -1,10 +1,10 @@
+import "./styles/main.css";
+
 import Header from "./components/Header.js";
 import Hero from "./components/Hero.js";
-import "./styles/App.css";
-
 function App() {
   return (
-    <div className="app">
+    <div className="m-0 p-0 font-DM-Sans bg-background text-textWhite	 h-screen w-screen">
       <Header />
       <Hero />
     </div>

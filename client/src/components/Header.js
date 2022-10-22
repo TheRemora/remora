@@ -1,11 +1,12 @@
 import React from "react";
 import siteLogo from "../assets/site-logo.svg";
-import "../styles/Header.css";
+import "../styles/main.css";
+
 function Header() {
   return (
-    <div className="navbar">
+    <div className="flex justify-center">
       <a href="localhost:3000">
-        <img src={siteLogo} alt="sitelogo" />
+        <img src={siteLogo} alt="sitelogo" className="text-center h-48 w-48" />
       </a>
     </div>
   );

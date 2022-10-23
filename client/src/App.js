@@ -1,13 +1,17 @@
 import "./styles/main.css";
-
-import Header from "./components/Header.js";
-import Hero from "./components/Hero.js";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Homepage from "./pages/Homepage";
+import MintNFTPage from "./pages/MintNFTPage";
 function App() {
   return (
-    <div className="m-0 p-0 font-DM-Sans bg-background text-textWhite	 h-screen w-screen">
-      <Header />
-      <Hero />
-    </div>
+    <Router>
+      <div className="m-0 p-0 font-DM-Sans bg-background text-textWhite	 h-screen w-screen">
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/mint" element={<MintNFTPage />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

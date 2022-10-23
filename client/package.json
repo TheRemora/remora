@@ -7,9 +7,11 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "react": "^18.2.0",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.4.2",
     "react-scripts": "5.0.1",
-    "tailwindcss-border-gradient-radius": "^3.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -17,7 +19,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "watch:css": "npx tailwindcss -i src/styles/tailwind.css -o src/styles/main.css --watch"
+    "tailwindcss": "npx tailwindcss -i src/styles/tailwind.css -o src/styles/main.css --watch"
   },
   "eslintConfig": {
     "extends": [

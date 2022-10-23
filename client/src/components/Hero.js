@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "../styles/main.css";
 
 function Hero() {
@@ -6,7 +7,7 @@ function Hero() {
     <div className="hero text-center flex flex-col items-center justify-center">
       <div className="w-max ">
         <div>
-          <h1 className="font-bold mgt-[10%] text-8xl text-center">
+          <h1 className="font-bold mt-[10%] text-8xl text-center">
             Splitting Revenue Got Easy
           </h1>
         </div>
@@ -24,9 +25,11 @@ function Hero() {
       </div>
       <div className="relative px-8 py my-4 ">
         <div className="absolute inset-[50px] animate-blurAnimation rounded-full p-6 blur-xl "></div>
-        <button className="relative bg-background text-2xl px-6 py-6 animate-borderAnimation rounded-full my-12">
-          Launch App
-        </button>
+        <Link to="/mint">
+          <button className="relative bg-background text-2xl px-6 py-6 animate-borderAnimation rounded-full my-12">
+            Launch App
+          </button>
+        </Link>
       </div>
     </div>
   );

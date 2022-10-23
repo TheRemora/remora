@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import siteLogo from "../assets/site-logo.svg";
+import Draggable from "../components/Draggable";
+import { DndContext } from "@dnd-kit/core";
 
 function Sidebar() {
+  const [parent, setParent] = useState(null);
+  let draggable;
   const searchNFT = (e) => {
     console.log(e.target.value);
   };
-
+  function handleDragEnd({ over }) {
+    setParent(over ? over.id : null);
+  }
   return (
     <aside className="w-96" aria-label="Sidebar">
       <div className="overflow-y-auto py-4 px-3 bg-gray-50 rounded h-screen dark:bg-gray-800">
@@ -68,11 +74,19 @@ function Sidebar() {
         <div className="space-y-8">
           {[1, 2, 3].map((item, key) => {
             return (
-              <img
-                src="https://picsum.photos/380/300"
-                className="rounded-lg cursor-grab"
-                alt={item}
-              />
+              <DndContext
+                onDragEnd={handleDragEnd}
+                className="w-6/12 border-2 border-white"
+              >
+                {!parent ? draggable : null}
+                <Draggable id="draggable">
+                  <img
+                    src="https://picsum.photos/380/300"
+                    className="rounded-lg cursor-grab z-30"
+                    alt={item}
+                  />
+                </Draggable>
+              </DndContext>
             );
           })}
         </div>

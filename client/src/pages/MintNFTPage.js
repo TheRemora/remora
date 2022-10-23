@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
-import { DnDProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import { DndContext } from "@dnd-kit/core";
+
+import Droppable from "../components/Droppable";
+
 function MintNFTPage() {
+  const [parent, setParent] = useState(null);
+  let draggable;
+  function handleDragEnd({ over }) {
+    setParent(over ? over.id : null);
+  }
   return (
     <div className="flex h-screen">
       {/* Sidebar */}
@@ -10,11 +17,18 @@ function MintNFTPage() {
         <Sidebar />
       </div>
       {/* Drag & Drop Zone */}
-      <div className="ml-32 bg-slate-400 w-full">
+      <div className="ml-32 0 w-full">
         <h1 className="text-white ml-32 mt-24 text-4xl">
           Drop here NFT to Mint
         </h1>
-        <div className="ml-32 my-8 w-8/12 h-[50%] bg-slate-700"></div>
+        {/* Drag and Drop */}
+        <DndContext
+          onDragEnd={handleDragEnd}
+          className="w-6/12 border-2 border-white"
+        >
+          {!parent ? draggable : null}
+          <Droppable id="droppable"></Droppable>
+        </DndContext>
         <button
           onClick={() => {
             alert("Minted");

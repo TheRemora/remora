@@ -1,30 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import siteLogo from "../assets/site-logo.svg";
-import Draggable from "../components/Draggable";
-import { DndContext } from "@dnd-kit/core";
+import NFTCards from "./NFTCards";
+import DATA from "../utils/data.json";
 
 function Sidebar() {
-  const [parent, setParent] = useState(null);
-  let draggable;
   const searchNFT = (e) => {
     console.log(e.target.value);
   };
-  function handleDragEnd({ over }) {
-    setParent(over ? over.id : null);
-  }
+
   return (
     <aside className="w-96" aria-label="Sidebar">
-      <div className="overflow-y-auto py-4 px-3 bg-gray-50 rounded h-screen dark:bg-gray-800">
+      <div className="overflow-y-auto   py-4 px-3 bg-gray-50 rounded h-screen dark:bg-gray-800">
         {/* Sidebar Logo */}
-        <a
-          href="https://localhost:3000/"
-          className="flex items-center text-center pl-2.5 mb-5"
-        >
-          <img
-            src={siteLogo}
-            className="mr-3 h-12 sm:h-7 "
-            alt="Flowbite Logo"
-          />
+        <a href="/" className="flex items-center text-center pl-2.5 mb-5">
+          <img src={siteLogo} className="mr-3 h-12 sm:h-7 " alt="Site Logo" />
         </a>
 
         {/* Search Bar */}
@@ -32,24 +21,24 @@ function Sidebar() {
           <form className="my-16">
             <label
               htmlFor="default-search"
-              class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
+              className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
             >
               Search
             </label>
-            <div class="relative">
-              <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+            <div className="relative">
+              <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                 <svg
                   aria-hidden="true"
-                  class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                  className="w-5 h-5 text-gray-500 dark:text-gray-400"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                   ></path>
                 </svg>
@@ -72,22 +61,9 @@ function Sidebar() {
           </form>
         </div>
         <div className="space-y-8">
-          {[1, 2, 3].map((item, key) => {
-            return (
-              <DndContext
-                onDragEnd={handleDragEnd}
-                className="w-6/12 border-2 border-white"
-              >
-                {!parent ? draggable : null}
-                <Draggable id="draggable">
-                  <img
-                    src="https://picsum.photos/380/300"
-                    className="rounded-lg cursor-grab z-30"
-                    alt={item}
-                  />
-                </Draggable>
-              </DndContext>
-            );
+          {DATA.map((id, title, imgURL) => {
+            /* TODO: Implement NFTCARDS */
+            console.log(id, title, imgURL);
           })}
         </div>
       </div>

@@ -8,7 +8,7 @@ function App() {
   return (
     <Router>
       <div className="m-0 p-0 font-DM-Sans bg-background text-textWhite	 h-screen w-screen">
-        <DndProvider backend={HTML5Backend}>
+        <DndProvider debugMode={true} backend={HTML5Backend}>
           <Routes>
             <Route path="/" element={<Homepage />} />
             <Route path="/mint" element={<MintNFTPage />} />

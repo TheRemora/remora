@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import siteLogo from "../assets/site-logo.svg";
 import NFTCards from "./NFTCards";
-import DATA from "../utils/data.json";
 
 function Sidebar() {
   const searchNFT = (e) => {
@@ -61,10 +60,7 @@ function Sidebar() {
           </form>
         </div>
         <div className="space-y-8">
-          {DATA.map((id, title, imgURL) => {
-            /* TODO: Implement NFTCARDS */
-            console.log(id, title, imgURL);
-          })}
+          <NFTCards />
         </div>
       </div>
     </aside>

@@ -5,7 +5,7 @@ import { ItemTypes } from "../utils/items";
 function Dropabble() {
   const [{ isOver }, dropRef] = useDrop({
     accept: ItemTypes.CARD,
-    drop: (item, monitor) => console.log(item),
+    drop: (item, monitor) => console.log(item, monitor),
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
     }),

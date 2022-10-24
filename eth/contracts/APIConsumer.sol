@@ -2,6 +2,7 @@
 pragma solidity ^0.8.7;
 
 import "@chainlink/contracts/src/v0.8/ChainlinkClient.sol";
+import "@ganache/console.log/console.sol";
 
 /**
  * @title The APIConsumer contract
@@ -44,6 +45,7 @@ contract APIConsumer is ChainlinkClient {
         oracle = _oracle;
         jobId = _jobId;
         fee = _fee;
+        console.log("Smart Contract APIConsumer %s", fee);
     }
 
     /**

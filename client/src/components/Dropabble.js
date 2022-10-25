@@ -1,10 +1,11 @@
 import React from "react";
 import { useDrop } from "react-dnd";
-import { ItemTypes } from "../utils/items";
+import AnimatedButton from "../widgets/buttons";
 
 function Dropabble() {
   const [{ isOver }, dropRef] = useDrop({
-    accept: ItemTypes.CARD,
+    accept: "image",
+
     drop: (item, monitor) => console.log(item, monitor),
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
@@ -19,18 +20,15 @@ function Dropabble() {
         ref={dropRef}
         className={
           isOver
-            ? "w-[50vw] h-[50vh] bg-slate-100 my-16 ml-32"
-            : "w-[50vw] h-[50vh] bg-slate-400 my-16 ml-32"
+            ? "w-[50vw] h-[50vh] my-16 ml-32 border-dashed border-8 border-green-500 border-spacing-4"
+            : "w-[50vw] h-[50vh]   my-16 ml-32 border-dashed border-8  border-spacing-4"
         }
       ></div>
-      <button
-        onClick={() => {
-          alert("Minted");
-        }}
-        className="ml-32 px-8 py-4 rounded-lg bg-black"
-      >
-        Mint
-      </button>
+      <AnimatedButton
+        onClickFunc={() => alert("Minted")}
+        className="relative bg-background text-2xl px-6 py-2 border-2 border-[#14E2B2] hover:text-black hover:bg-[#14E2B2] hover:transition-all  rounded ml-32 my-6"
+        buttonName="Mint"
+      />
     </div>
   );
 }

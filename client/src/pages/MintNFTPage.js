@@ -6,7 +6,6 @@ function MintNFTPage() {
   return (
     <div className="flex h-screen">
       {/* Sidebar */}
-
       <div className="h-screen">
         <Sidebar />
       </div>

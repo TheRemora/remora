@@ -1,18 +1,17 @@
-import React, { useEffect } from "react";
-import siteLogo from "../assets/site-logo.svg";
+import React from "react";
 import NFTCards from "./NFTCards";
+import { NFTDATA } from "../utils/data";
+import uuid from "react-uuid";
+import SiteLogo from "../widgets/SiteLogo";
 
 function Sidebar() {
-  const searchNFT = (e) => {
-    console.log(e.target.value);
-  };
-
+  const searchNFT = (e) => {};
   return (
     <aside className="w-96" aria-label="Sidebar">
-      <div className="overflow-y-auto   py-4 px-3 bg-gray-50 rounded h-screen dark:bg-gray-800">
+      <div className="overflow-y-auto py-4 px-3 bg-gray-50 rounded h-screen dark:bg-gray-800">
         {/* Sidebar Logo */}
         <a href="/" className="flex items-center text-center pl-2.5 mb-5">
-          <img src={siteLogo} className="mr-3 h-12 sm:h-7 " alt="Site Logo" />
+          <SiteLogo className="mr-3 mt-6 h-12 sm:h-7" alt="Site Logo" />
         </a>
 
         {/* Search Bar */}
@@ -59,8 +58,18 @@ function Sidebar() {
             </div>
           </form>
         </div>
-        <div className="space-y-8">
-          <NFTCards />
+        <div className="space-y-8 ">
+          {NFTDATA.map((data, index) => {
+            return (
+              <NFTCards
+                key={uuid()}
+                id={data.id}
+                imgURL={data.imgURL}
+                title={data.title}
+                index={index}
+              />
+            );
+          })}
         </div>
       </div>
     </aside>

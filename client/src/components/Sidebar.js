@@ -1,10 +1,23 @@
-import React from "react";
+import React, { useState, createContext } from "react";
 import NFTCards from "./NFTCards";
 import { NFTDATA } from "../utils/data";
 import uuid from "react-uuid";
 import SiteLogo from "../widgets/SiteLogo";
 
+export const SelectedNFTContext = createContext({ dropped: null });
+
 function Sidebar() {
+  const [nftList, setNftList] = useState([...NFTDATA]);
+
+  const dropped = (id) => {
+    console.log(nftList);
+    const selectedNFT = nftList.filter((nft, i) => nft.id === id);
+    selectedNFT[0].status = "selected";
+    setNftList(
+      nftList.filter((nft, i) => nft.id !== id).concat(selectedNFT[0])
+    );
+  };
+
   const searchNFT = (e) => {};
   return (
     <aside className="w-96" aria-label="Sidebar">
@@ -58,19 +71,21 @@ function Sidebar() {
             </div>
           </form>
         </div>
-        <div className="space-y-8 ">
-          {NFTDATA.map((data, index) => {
-            return (
-              <NFTCards
-                key={uuid()}
-                id={data.id}
-                imgURL={data.imgURL}
-                title={data.title}
-                index={index}
-              />
-            );
-          })}
-        </div>
+        <SelectedNFTContext.Provider value={{ dropped }}>
+          <div className="space-y-8 ">
+            {nftList
+              .filter((nft) => nft.status === "unselect")
+              .map((nft) => (
+                <NFTCards
+                  index={nft.id}
+                  key={uuid()}
+                  id={nft.id}
+                  imgURL={nft.imgURL}
+                  title={nft.title}
+                />
+              ))}
+          </div>
+        </SelectedNFTContext.Provider>
       </div>
     </aside>
   );

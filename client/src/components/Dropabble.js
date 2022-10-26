@@ -1,12 +1,15 @@
 import React from "react";
 import { useDrop } from "react-dnd";
 import AnimatedButton from "../widgets/buttons";
+import { SelectedNFTContext } from "./Sidebar";
 
 function Dropabble() {
+  const { dropped } = React.useContext(SelectedNFTContext);
+  console.log(dropped);
   const [{ isOver }, dropRef] = useDrop({
     accept: "image",
 
-    drop: (item, monitor) => console.log(item, monitor),
+    drop: (item, monitor) => dropped(item.id),
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
     }),
@@ -14,8 +17,11 @@ function Dropabble() {
 
   return (
     <div>
-      <h1 className="text-white ml-32 mt-24 text-4xl">Drop here NFT to Mint</h1>
+      <h1 className="text-white ml-32 mt-24 text-4xl">
+        Drop here NFTs to Mint
+      </h1>
       {/* Drag and Drop */}
+
       <div
         ref={dropRef}
         className={

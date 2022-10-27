@@ -27,6 +27,7 @@ function MintNFTPage() {
     console.log(id);
     const selectedNFt = nftList.filter((nft) => id === nft.id);
     setDroppableArea((droppedArea) => [...droppedArea, selectedNFt[0]]);
+    setNftList(nftList.filter((nft) => nft.id !== id));
   };
 
   return (
@@ -112,11 +113,11 @@ function MintNFTPage() {
               ref={dropRef}
               className={
                 isOver
-                  ? "w-[50vw] h-[50vh] my-16 ml-32 border-dashed border-8 border-green-500 border-spacing-4"
-                  : "w-[50vw] h-[50vh]   my-16 ml-32 border-dashed border-8  border-spacing-4 flex overflow-hidden  justify-center"
+                  ? "w-[60vw] h-[50vh] my-16 ml-32 border-dashed border-8 border-green-500 border-spacing-4"
+                  : "w-[60vw] h-[50vh] my-16 ml-32 border-dashed border-8  border-spacing-4  overflow-hidden flex gap-10"
               }
             >
-              <div className="h-80 w-80">
+              <div className="h-full w-full grid grid-cols-2 gap-10 items-center px-6">
                 {/* Display the dropped nfts */}
                 {droppablArea.map((nft) => {
                   return (

@@ -3,24 +3,27 @@ import { useDrag } from "react-dnd";
 
 // import { NFTDATA } from "../utils/data";
 
-function NFTCards({ index, id, imgURL, title }) {
+function NFTCards({ index, id, imgURL, title, className }) {
   const [{ isDragging }, dragRef] = useDrag({
     type: "image",
+    item: { id: id },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     }),
   });
 
   return (
-    <ul index={index}>
-      <li ref={dragRef} className={isDragging ? "border-2 " : "border-0   "}>
-        <img
-          className=" text-center w-full h-80 bg-cover  object-cover"
-          src={imgURL}
-          alt={title}
-        />
-      </li>
-    </ul>
+    <div>
+      <ul index={index}>
+        <li ref={dragRef} className={isDragging ? "border-2 " : "border-0  "}>
+          <img
+            className=" text-center w-full h-80 bg-cover  object-cover"
+            src={imgURL}
+            alt={title}
+          />
+        </li>
+      </ul>
+    </div>
   );
 }
 

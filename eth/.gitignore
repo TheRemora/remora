@@ -36,3 +36,6 @@ lerna-debug.log*
 
 # Contracts Build
 /build
+
+#secret key
+.secret

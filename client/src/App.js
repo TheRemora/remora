@@ -7,7 +7,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 function App() {
   return (
     <Router>
-      <div className="m-0 p-0 font-DM-Sans bg-background text-textWhite	 h-screen w-screen">
+      <div className="m-0 p-0 font-DM-Sans bg-background text-textWhite	 h-screen w-screen mobile:h-screen mobile:w-screen tablet:h-screen tablet:w-screen laptop:h-screen laptop:w-screen ">
         <DndProvider debugMode={true} backend={HTML5Backend}>
           <Routes>
             <Route path="/" element={<Homepage />} />

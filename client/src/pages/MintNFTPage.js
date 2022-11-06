@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { ethers } from "ethers";
 import SiteLogo from "../widgets/SiteLogo";
 import { NFTDATA } from "../utils/data";
 import uuid from "react-uuid";
@@ -10,8 +10,35 @@ import NFTCards from "../components/NFTCards";
 export const SelectedNFTContext = React.createContext({ dropped: null });
 
 function MintNFTPage() {
+  const { ethereum } = window;
+  const [haveMetamask, sethaveMetamask] = useState(true);
   const [nftList, setNftList] = useState([...NFTDATA]);
+  const [isConnected, setIsConnected] = useState(false);
+  const [accountAddress, setAccountAddress] = useState("");
+
   const [droppablArea, setDroppableArea] = useState([]);
+
+  const checkMetamaskAvailability = () => {
+    if (!ethereum) {
+      sethaveMetamask(false);
+    }
+    sethaveMetamask(true);
+  };
+
+  const connectWallet = async () => {
+    try {
+      if (!ethereum) {
+        sethaveMetamask(false);
+      }
+      const accounts = await ethereum.request({
+        method: "eth_requestAccounts",
+      });
+      setAccountAddress(accounts[0]);
+      setIsConnected(true);
+    } catch (error) {
+      setIsConnected(false);
+    }
+  };
   const searchNFT = (e) => {};
 
   const [{ isOver }, dropRef] = useDrop({
@@ -104,6 +131,17 @@ function MintNFTPage() {
           </aside>
         </div>
         <div className="space-y-8 ">
+          <div className="flex mx-auto justify-end my-8 items-center">
+            {accountAddress}
+            {!isConnected && (
+              <button
+                onClick={connectWallet}
+                className="bg-background text-2xl px-6 py-2 border-2 border-[#14E2B2] hover:text-black hover:bg-[#14E2B2] hover:transition-all  rounded ml-32 "
+              >
+                Connect To Wallet
+              </button>
+            )}
+          </div>
           <div>
             <h1 className="text-white ml-32 mt-24 text-4xl ">
               Drop here NFTs to Mint
@@ -117,7 +155,7 @@ function MintNFTPage() {
                   : "w-[60vw] h-[50vh] my-16 ml-32 border-dashed border-8  border-spacing-4  overflow-hidden flex gap-10"
               }
             >
-              <div className="h-full w-full grid grid-cols-2 gap-10 items-center px-6">
+              <div className="h-full w-full grid grid-cols-2 gap-10 items-center px-6 ">
                 {/* Display the dropped nfts */}
                 {droppablArea.map((nft) => {
                   return (

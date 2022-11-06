@@ -13,16 +13,31 @@ export const Features = ({ className, features }) => {
 
 function Hero() {
   const title = "Splitting Revenue Got Easy";
+
+  const featureStyle =
+    "text-[12px] mobile:text-sm tablet:text-2xl laptop:text-2xl desktop:text-2xl";
+
   return (
     <div className="hero text-center flex flex-col items-center justify-center">
-      <div className="w-max">
+      <div className="w-screen">
         <div>
-          <h1 className="font-bold mt-[10%] text-8xl text-center">{title}</h1>
+          <h1 className="font-bold mt-[7%] text-4xl text-center mobile:text-4xl tablet:text-6xl laptop:text-8xl desktop:text-8xl">
+            {title}
+          </h1>
         </div>
-        <div className="text-2xl flex justify-evenly my-8">
-          <Features className="text-[#FF7A00]" features="100% Decentralized" />
-          <Features className="text-[#0BFF8A]" features="0% Management Fee" />
-          <Features className="text-[#FFE606]" features="Unlimited Splits" />
+        <div className=" flex justify-evenly my-8">
+          <Features
+            className={`text-[#FF7A00] ${featureStyle}`}
+            features="100% Decentralized"
+          />
+          <Features
+            className={`text-[#0BFF8A] ${featureStyle}`}
+            features="0% Management Fee"
+          />
+          <Features
+            className={`text-[#FFE606] ${featureStyle}`}
+            features="Unlimited Splits"
+          />
         </div>
       </div>
       <div className="relative px-8 py my-4 ">

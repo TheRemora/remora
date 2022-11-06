@@ -19,6 +19,7 @@
     "web3": "^1.7.5"
   },
   "dependencies": {
-    "@ganache/console.log": "^0.2.0"
+    "@ganache/console.log": "^0.2.0",
+    "@openzeppelin/contracts": "^4.7.3" 
   }
 }

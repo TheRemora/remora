@@ -1,5 +1,5 @@
-var FruitsList = artifacts.require("./Fruits.sol");
+var contract = artifacts.require("ERC1155_Token");
 
 module.exports = function(deployer){
-  deployer.deploy(FruitsList);
+  deployer.deploy(contract);
 }

@@ -1,12 +1,18 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
+import { CNFTDto, SNFTViewModel } from './app.model';
 import { AppService } from './app.service';
 
-@Controller()
+@Controller('api')
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Get('snfts')
+  getAllSNFTs(): SNFTViewModel[] {
+    return this.appService.getAllSNFTs();
+  }
+
+  @Post('mint')
+  mintCNFT(@Body() cnftDto: CNFTDto) {
+    return this.appService.mintNFT(cnftDto);
   }
 }

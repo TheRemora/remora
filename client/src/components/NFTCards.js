@@ -1,11 +1,11 @@
-import React from "react";
-import { useDrag } from "react-dnd";
+import React from 'react';
+import { useDrag } from 'react-dnd';
 
 // import { NFTDATA } from "../utils/data";
 
 function NFTCards({ index, id, imgURL, title, className }) {
   const [{ isDragging }, dragRef] = useDrag({
-    type: "image",
+    type: 'image',
     item: { id: id },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
@@ -13,9 +13,9 @@ function NFTCards({ index, id, imgURL, title, className }) {
   });
 
   return (
-    <div className="space-y-2 mb-4 ">
+    <div className="space-y-2 my-8 mx-2 ">
       <ul index={index}>
-        <li ref={dragRef} className={isDragging ? "border-2 " : "border-0 "}>
+        <li ref={dragRef} className={isDragging ? 'border-2 ' : 'border-0 '}>
           <img
             className=" text-center w-full h-80 bg-cover  object-cover"
             src={imgURL}

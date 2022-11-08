@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { ethers } from "ethers";
-import SiteLogo from "../widgets/SiteLogo";
-import { NFTDATA } from "../utils/data";
-import uuid from "react-uuid";
-import { useDrop } from "react-dnd";
-import AnimatedButton from "../widgets/buttons";
-import NFTCards from "../components/NFTCards";
+import React, { useState } from 'react';
+import { ethers } from 'ethers';
+import SiteLogo from '../widgets/SiteLogo';
+import { NFTDATA } from '../utils/data';
+import uuid from 'react-uuid';
+import { useDrop } from 'react-dnd';
+import AnimatedButton from '../widgets/buttons';
+import NFTCards from '../components/NFTCards';
 
 export const SelectedNFTContext = React.createContext({ dropped: null });
 
@@ -14,7 +14,7 @@ function MintNFTPage() {
   const [haveMetamask, sethaveMetamask] = useState(true);
   const [nftList, setNftList] = useState([...NFTDATA]);
   const [isConnected, setIsConnected] = useState(false);
-  const [accountAddress, setAccountAddress] = useState("");
+  const [accountAddress, setAccountAddress] = useState('');
 
   const [droppablArea, setDroppableArea] = useState([]);
 
@@ -31,7 +31,7 @@ function MintNFTPage() {
         sethaveMetamask(false);
       }
       const accounts = await ethereum.request({
-        method: "eth_requestAccounts",
+        method: 'eth_requestAccounts',
       });
       setAccountAddress(accounts[0]);
       setIsConnected(true);
@@ -42,7 +42,7 @@ function MintNFTPage() {
   const searchNFT = (e) => {};
 
   const [{ isOver }, dropRef] = useDrop({
-    accept: "image",
+    accept: 'image',
 
     drop: (item, monitor) => dropped(item.id),
     collect: (monitor) => ({
@@ -62,8 +62,8 @@ function MintNFTPage() {
       <div className="flex h-screen">
         {/* Sidebar */}
         <div className="h-screen">
-          <aside className="w-96" aria-label="Sidebar">
-            <div className="overflow-y-auto py-4 px-3 bg-gray-50 rounded h-screen dark:bg-gray-800">
+          <aside className="w-[27rem]" aria-label="Sidebar">
+            <div className="overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 py-4 px-4 bg-gray-50 rounded h-screen dark:bg-gray-800">
               {/* Sidebar Logo */}
               <a href="/" className="flex items-center text-center pl-2.5 mb-5">
                 <SiteLogo className="mr-3 mt-6 h-12 sm:h-7" alt="Site Logo" />
@@ -116,7 +116,7 @@ function MintNFTPage() {
               {/* NFTs */}
               {nftList
                 .filter((nft) => {
-                  return nft.status === "unselect";
+                  return nft.status === 'unselect';
                 })
                 .map((nft) => (
                   <NFTCards
@@ -143,16 +143,14 @@ function MintNFTPage() {
             )}
           </div>
           <div>
-            <h1 className="text-white ml-32 mt-24 text-4xl ">
-              Drop here NFTs to Mint
-            </h1>
+            <h1 className="text-white ml-32 mt-24 text-4xl ">Drop here NFTs to Mint</h1>
             {/* Drag and Drop */}
             <div
               ref={dropRef}
               className={
                 isOver
-                  ? "w-[60vw] h-[50vh] my-16 ml-32 border-dashed border-8 border-green-500 border-spacing-4"
-                  : "w-[60vw] h-[50vh] my-16 ml-32 border-dashed border-8  border-spacing-4  overflow-hidden flex gap-10"
+                  ? 'w-[60vw] h-[50vh] my-16 ml-32 bg-slate-400 border-green-500 border-spacing-4'
+                  : 'w-[60vw] h-[50vh] my-16 ml-32 bg-slate-600  border-spacing-4 overflow-hidden flex gap-10 '
               }
             >
               <div className="h-full w-full grid grid-cols-2 gap-10 items-center px-6 ">
@@ -173,7 +171,7 @@ function MintNFTPage() {
               </div>
             </div>
             <AnimatedButton
-              onClickFunc={() => alert("Minted")}
+              onClickFunc={() => alert('Minted')}
               className="relative bg-background text-2xl px-6 py-2 border-2 border-[#14E2B2] hover:text-black hover:bg-[#14E2B2] hover:transition-all  rounded ml-32 my-6"
               buttonName="Mint"
             />

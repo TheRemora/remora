@@ -13,11 +13,11 @@ function NFTCards({ index, id, imgURL, title, className }) {
   });
 
   return (
-    <div className="space-y-2 my-8 mx-2 ">
+    <div className="space-y-2 my-8 mx-2 p-4 ">
       <ul index={index}>
         <li ref={dragRef} className={isDragging ? 'border-2 ' : 'border-0 '}>
           <img
-            className=" text-center w-full h-80 bg-cover  object-cover"
+            className="rounded-lg text-center w-full h-80 bg-cover  object-cover"
             src={imgURL}
             alt={title}
           />

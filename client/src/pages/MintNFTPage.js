@@ -62,8 +62,8 @@ function MintNFTPage() {
       <div className="flex h-screen">
         {/* Sidebar */}
         <div className="h-screen">
-          <aside className="w-[27rem]" aria-label="Sidebar">
-            <div className="overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 py-4 px-4 bg-gray-50 rounded h-screen dark:bg-gray-800">
+          <aside className="w-[29rem] " aria-label="Sidebar">
+            <div className="overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 py-4 px-6 bg-gray-50 rounded h-screen dark:bg-gray-800">
               {/* Sidebar Logo */}
               <a href="/" className="flex items-center text-center pl-2.5 mb-5">
                 <SiteLogo className="mr-3 mt-6 h-12 sm:h-7" alt="Site Logo" />

@@ -1,8 +1,8 @@
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 const fs = require('fs');
-const privateKey = fs.readFileSync(".secret").toString().trim();
+const privateKey = "3c452d8ec5412a77f6553da83c6d9771b197f0dd31786137821a3b70514bbfc0";
 const QUICKNODE_PROVIDER = "https://thrilling-smart-star.ethereum-goerli.discover.quiknode.pro/8a50027d11462efbcfeb46b5b9be15e4d6f33dad/"
-const ganachePrivateKeys = ["faadff48ebae3445f44bd55e9d6d90a1588165ce1226cb9aecb4c39962692f43"]
+const ganachePrivateKeys = ["3c452d8ec5412a77f6553da83c6d9771b197f0dd31786137821a3b70514bbfc0"]
 
 
 module.exports = {

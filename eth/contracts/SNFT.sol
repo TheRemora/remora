@@ -3,17 +3,19 @@
 pragma solidity >=0.6.12;
 
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
-contract ERC1155_Token is ERC1155, Ownable {
+contract SNFT is ERC1155, Ownable {
 
     string[] public names; //string array of names
     uint[] public ids; //uint array of ids
     string public baseMetadataURI; //the token metadata URI
     string public name; //the token mame
-    uint public mintFee = 0.05 ether; 
     address payable public payments;
+
+    uint public mintFee = 0.00 ether; 
     
     mapping(string => uint) public nameToId; //name to id mapping
     mapping(uint => string) public idToName; //id to name mapping

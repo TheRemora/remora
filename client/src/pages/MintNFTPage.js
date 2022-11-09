@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ethers } from 'ethers';
+import React, { useEffect, useState } from 'react';
+import { ethers, ContractFactory } from 'ethers';
 import SiteLogo from '../widgets/SiteLogo';
 import { NFTDATA } from '../utils/data';
 import uuid from 'react-uuid';
@@ -11,25 +11,31 @@ export const SelectedNFTContext = React.createContext({ dropped: null });
 
 function MintNFTPage() {
   const { ethereum } = window;
-  const [haveMetamask, sethaveMetamask] = useState(true);
+  const [haveMetamask, sethaveMetamask] = useState(false);
+  const [provider, setProvider] = useState({});
   const [nftList, setNftList] = useState([...NFTDATA]);
   const [isConnected, setIsConnected] = useState(false);
   const [accountAddress, setAccountAddress] = useState('');
 
   const [droppablArea, setDroppableArea] = useState([]);
 
-  const checkMetamaskAvailability = () => {
+  useEffect(() => { // run only once
     if (!ethereum) {
-      sethaveMetamask(false);
+      return sethaveMetamask(false);
     }
-    sethaveMetamask(true);
-  };
+    return sethaveMetamask(true);
+  }, []);
+
 
   const connectWallet = async () => {
     try {
-      if (!ethereum) {
-        sethaveMetamask(false);
+      if (!haveMetamask) {
+        alert('MetaMask wallet not available!');
+        return;
       }
+      const provider = new ethers.providers.Web3Provider(ethereum);
+      setProvider(provider);
+
       const accounts = await ethereum.request({
         method: 'eth_requestAccounts',
       });
@@ -39,7 +45,45 @@ function MintNFTPage() {
       setIsConnected(false);
     }
   };
+
+  //TODO: GET /api/snfts?name_query=*Car*
   const searchNFT = (e) => {};
+
+  /*
+  TODO: 
+    1. POST /api/compile . Body {snft_addresses: [0x...01, 0x....02]}. This receive and object from solc.compile()
+    2. Sign and deploy the contract using MetaMask wallet Account
+  */
+  const mintNFT = async () => {
+    const _result = await fetch('http://localhost:5050/api/compile', {
+      method: 'GET',
+      mode: 'cors',
+      cache: 'no-cache',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+    });
+    const result = _result.json();
+    /*
+    result = {
+        abi: [{...}, {...}, {...}],
+        evm: {
+          bytecode: {...}
+        }
+    }
+    */
+    result.then(async (data) => {
+      const abi = data.abi;
+      const bytecode = data.evm.bytecode.object;
+
+      const factory = new ContractFactory(abi, bytecode, provider.getSigner());
+      return factory.deploy();
+    }).then((deployResult) => {
+      alert(deployResult.address);
+    });
+  }
 
   const [{ isOver }, dropRef] = useDrop({
     accept: 'image',
@@ -171,7 +215,7 @@ function MintNFTPage() {
               </div>
             </div>
             <AnimatedButton
-              onClickFunc={() => alert('Minted')}
+              onClickFunc={mintNFT}
               className="relative bg-background text-2xl px-6 py-2 border-2 border-[#14E2B2] hover:text-black hover:bg-[#14E2B2] hover:transition-all  rounded ml-32 my-6"
               buttonName="Mint"
             />

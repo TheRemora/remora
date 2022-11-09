@@ -36,6 +36,6 @@ export class AppService {
     };
 
     const output = JSON.parse(this.solc.compile(JSON.stringify(input)));
-    return output;
+    return output['contracts']['Test.sol']['TestContract'];
   }
 }

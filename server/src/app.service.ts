@@ -1,14 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { CNFTDto, SNFTViewModel } from './app.model';
-import Web3 from 'web3';
+import { SNFTViewModel } from './app.model';
+//import Web3 from 'web3';
+import { resolve } from 'node:path';
+import { readFileSync } from 'fs';
 
 @Injectable()
 export class AppService {
-  web3: Web3;
-
-  constructor() {
-    this.web3 = new Web3();
-  }
+  solc = require('solc');
 
   getAllSNFTs(): Array<SNFTViewModel> {
     const result: Array<SNFTViewModel> = new Array<SNFTViewModel>();
@@ -17,7 +15,27 @@ export class AppService {
     return result;
   }
 
-  mintNFT(cnftDto: CNFTDto) {
-    return 'Hello World';
+  compileContract(): string {
+    const contractPath = resolve(__dirname, 'contracts', 'Test.sol'); //current working directory
+    const source = readFileSync(contractPath, 'utf8'); //read raw source file
+
+    const input = {
+      language: 'Solidity',
+      sources: {
+        'Test.sol': {
+          content: source,
+        },
+      },
+      settings: {
+        outputSelection: {
+          '*': {
+            '*': ['*'],
+          },
+        },
+      },
+    };
+
+    const output = JSON.parse(this.solc.compile(JSON.stringify(input)));
+    return output;
   }
 }

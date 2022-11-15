@@ -1,19 +1,48 @@
-export class SNFTViewModel {
+export abstract class NFTCollection {
   uuid: string;
-  address: string;
-  viewName: string;
+  collectionName: string;
+  contractAddress: string;
 
-  constructor(uuid: string, address: string, viewName: string) {
+  constructor(uuid: string, collectionName: string, contractAddress: string) {
     this.uuid = uuid;
-    this.address = address;
-    this.viewName = viewName;
+    this.collectionName = collectionName;
+    this.contractAddress = contractAddress;
   }
 }
 
-export class CNFTDto {
-  snftAddresses: Array<string>;
+export class SNFTCollection extends NFTCollection {
+  constructor(uuid: string, collectionName: string, contractAdress: string) {
+    super(uuid, collectionName, contractAdress);
+  }
+}
 
-  constructor(snftAddresses: Array<string>) {
-    this.snftAddresses = snftAddresses;
+export class CNFTCollection extends NFTCollection {
+  constructor(uuid: string, collectionName: string, contractAdress: string) {
+    super(uuid, collectionName, contractAdress);
+  }
+}
+
+export class SNFTViewModel {
+  collectionUUID: string;
+  collectionAddress: string;
+  tokenID: string;
+  imageURL: string;
+  imageName: string;
+  imageDescription: string;
+
+  constructor(
+    collectionUUID: string,
+    collectionAddress: string,
+    tokenID: string,
+    imageURL: string,
+    imageName: string,
+    imageDesciption: string,
+  ) {
+    this.collectionUUID = collectionUUID;
+    this.collectionAddress = collectionAddress;
+    this.tokenID = tokenID;
+    this.imageURL = imageURL;
+    this.imageName = imageName;
+    this.imageDescription = imageDesciption;
   }
 }

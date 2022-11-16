@@ -1,7 +1,15 @@
+export class NFTAsset {
+  url: string;
+  name: string;
+  description: string;
+  collectionUUID: string;
+}
+
 export abstract class NFTCollection {
   uuid: string;
   collectionName: string;
   contractAddress: string;
+  assets: Array<NFTAsset>;
 
   constructor(uuid: string, collectionName: string, contractAddress: string) {
     this.uuid = uuid;

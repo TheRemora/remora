@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-//import Web3 from 'web3';
 import { resolve } from 'node:path';
 import { readFileSync } from 'fs';
 import { SNFTViewModel } from './app.model';
@@ -37,6 +36,4 @@ export class AppService {
     //TODO: do something
     return null;
   }
-
-  
 }

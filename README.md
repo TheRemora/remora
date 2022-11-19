@@ -37,7 +37,7 @@ This story inspires our team to apply in the modern art industry. Nowadays, one 
 ---  
 
 <p align="center">
-<a href="https://google.com">Live Project Link</a>
+<a href="https://www.youtube.com/watch?v=hsOi8a-KeYQ">Launch Demo</a>
 </p>  
 
 ---

@@ -1,39 +1,29 @@
 import { Injectable } from '@nestjs/common';
 import { resolve } from 'node:path';
 import { readFileSync } from 'fs';
-import { SNFTViewModel } from './app.model';
-import { ethers } from "ethers";
+import { NFTAsset, SNFTCollection } from './app.model';
+import { Repository } from './app.repository';
+//import { ethers } from "ethers";
 
 @Injectable()
 export class AppService {
   solc = require('solc');
 
-  compileContract(): string {
-    const contractPath = resolve(__dirname, 'contracts', 'Test.sol'); //current working directory
+  compileContract(contract: string): string {
+    const contractPath = resolve(__dirname, 'contracts', contract + '.json'); //current working directory
     const source = readFileSync(contractPath, 'utf8'); //read raw source file
-
-    const input = {
-      language: 'Solidity',
-      sources: {
-        'Test.sol': {
-          content: source,
-        },
-      },
-      settings: {
-        outputSelection: {
-          '*': {
-            '*': ['*'],
-          },
-        },
-      },
-    };
-
-    const output = JSON.parse(this.solc.compile(JSON.stringify(input)));
-    return output['contracts']['Test.sol']['TestContract'];
+    const output = JSON.parse(source);
+    return output;
   }
 
-  searchSNFT(searchString: string): SNFTViewModel {
-    //TODO: do something
-    return null;
+  getAllSNFT(): Array<NFTAsset> {
+    const ret: Array<NFTAsset> = new Array<NFTAsset>();
+    const snftCollections: Array<SNFTCollection> = Repository.getAllSNFTCollections();
+    for (const collection of snftCollections) {
+      for (const asset of collection.getAssets()) {
+        ret.push(asset);
+      }
+    }
+    return ret;
   }
 }

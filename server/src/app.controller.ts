@@ -1,5 +1,5 @@
-import { Controller, Get } from '@nestjs/common';
-import { SNFTViewModel } from './app.model';
+import { Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { NFTAsset } from './app.model';
 import { AppService } from './app.service';
 
 @Controller('api')
@@ -7,12 +7,13 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get('snfts')
-  getAllSNFTs(): SNFTViewModel[] {
-    return this.appService.getAllSNFTs();
+  getAllSNFTs(): NFTAsset[] {
+    return this.appService.getAllSNFT();
   }
 
-  @Get('compile')
-  compileContract(): string {
-    return this.appService.compileContract();
+  @Get('contract/:contract')
+  getContract(@Param() params): string {
+    console.log('Fetching contract ' + params.contract);
+    return this.appService.compileContract(params.contract);
   }
 }

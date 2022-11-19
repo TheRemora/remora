@@ -2,12 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
-async function init() {
-  await 
-}
-
 async function bootstrap() {
-  await init();
   const app = await NestFactory.create(AppModule);
 
   app.enableCors({

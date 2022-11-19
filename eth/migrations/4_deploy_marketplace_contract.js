@@ -1,4 +1,4 @@
-var MarketPlaceContract = artifacts.require("SplitRevenueMarketPlace");
+var MarketPlaceContract = artifacts.require("SplitRevenueMarketplace");
 
 module.exports = function(deployer, network, accounts) {
   deployer.deploy(

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { ethers, ContractFactory } from 'ethers';
+import { ethers, Contract } from 'ethers';
 import SiteLogo from '../widgets/SiteLogo';
-import { NFTDATA } from '../utils/data';
-import uuid from 'react-uuid';
 import { useDrop } from 'react-dnd';
 import AnimatedButton from '../widgets/buttons';
 import NFTCards from '../components/NFTCards';
@@ -13,7 +11,7 @@ function MintNFTPage() {
   const { ethereum } = window;
   const [haveMetamask, sethaveMetamask] = useState(false);
   const [provider, setProvider] = useState({});
-  const [nftList, setNftList] = useState([...NFTDATA]);
+  const [nftList, setNftList] = useState([]);
   const [isConnected, setIsConnected] = useState(false);
   const [accountAddress, setAccountAddress] = useState('');
 
@@ -25,7 +23,6 @@ function MintNFTPage() {
     }
     return sethaveMetamask(true);
   }, []);
-
 
   const connectWallet = async () => {
     try {
@@ -46,16 +43,33 @@ function MintNFTPage() {
     }
   };
 
-  //TODO: GET /api/snfts?name_query=*Car*
-  const searchNFT = (e) => {};
+  const fetchSNFTS = async () => {
+    const _result = await fetch('http://localhost:5050/api/snfts', {
+      method: 'GET',
+      mode: 'cors',
+      cache: 'no-cache',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+    });
+    const result = await _result.json();
+    return result;
+  };
 
-  /*
-  TODO: 
-    1. POST /api/compile . Body {snft_addresses: [0x...01, 0x....02]}. This receive and object from solc.compile()
-    2. Sign and deploy the contract using MetaMask wallet Account
-  */
+  useEffect(() => { // run only once
+    const fetchData = async () => {
+      return await fetchSNFTS();
+    };
+
+    fetchData().then((data) => {
+      setNftList(data);
+    });
+  }, []);
+
   const mintNFT = async () => {
-    const _result = await fetch('http://localhost:5050/api/compile', {
+    const _result = await fetch('http://localhost:5050/api/contract/ERC721CNFT', {
       method: 'GET',
       mode: 'cors',
       cache: 'no-cache',
@@ -66,22 +80,18 @@ function MintNFTPage() {
       referrerPolicy: 'no-referrer',
     });
     const result = _result.json();
-    /*
-    result = {
-        abi: [{...}, {...}, {...}],
-        evm: {
-          bytecode: {...}
-        }
-    }
-    */
     result.then(async (data) => {
       const abi = data.abi;
-      const bytecode = data.evm.bytecode.object;
-
-      const factory = new ContractFactory(abi, bytecode, provider.getSigner());
-      return factory.deploy();
-    }).then((deployResult) => {
-      alert(deployResult.address);
+      const contract = new Contract("0x5A8e187d7bE1dAEbe02B72196A6A01daDd3C361c", abi, provider.getSigner());
+      const snftAddresses = [];
+      const snftTokenId = [];
+      droppablArea.map((nft) => {
+        snftAddresses.push(nft.collectionAddress);
+        snftTokenId.push(nft.tokenID);
+      });
+      return contract.mint(1, snftAddresses, snftTokenId);
+    }).then((result) => {
+      alert(result);
     });
   }
 
@@ -141,7 +151,7 @@ function MintNFTPage() {
                       </svg>
                     </div>
                     <input
-                      onChange={searchNFT}
+                      onChange={fetchSNFTS}
                       type="search"
                       id="default-search"
                       className="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -159,16 +169,16 @@ function MintNFTPage() {
               </div>
               {/* NFTs */}
               {nftList
-                .filter((nft) => {
-                  return nft.status === 'unselect';
-                })
                 .map((nft) => (
                   <NFTCards
                     index={nft.id}
-                    key={uuid()}
+                    key={nft.id}
                     id={nft.id}
-                    imgURL={nft.imgURL}
-                    title={nft.title}
+                    imageURL={nft.imageURL}
+                    imageName={nft.imageName}
+                    collectionUUID={nft.collectionUUID}
+                    collectionAddress={nft.collectionAddress}
+                    tokenID={nft.tokenID}
                   />
                 ))}
             </div>
@@ -204,10 +214,13 @@ function MintNFTPage() {
                     <div>
                       <NFTCards
                         index={nft.id}
-                        key={uuid()}
+                        key={nft.id}
                         id={nft.id}
-                        imgURL={nft.imgURL}
-                        title={nft.title}
+                        imageURL={nft.imageURL}
+                        imageName={nft.imageName}
+                        collectionUUID={nft.collectionUUID}
+                        collectionAddress={nft.collectionAddress}
+                        tokenID={nft.tokenID}
                       />
                     </div>
                   );
